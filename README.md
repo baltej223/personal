@@ -1,3 +1,9 @@
+I wrote this functions while working on [Markdown interpretor](https://github.com/baltej223/md_interpreter) and moved these helpful function to this repo for minifying markdown interpretor. it has some good and helpful functions. 
+
+**Put this is your script tag**
+```
+<script src="https://github.com/baltej223/personal/personal.js"></script>
+```
 #### functions
 - page
 - **.c()** *(my fav)*
