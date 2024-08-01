@@ -2,7 +2,8 @@ I wrote this functions while working on [Markdown interpretor](https://github.co
 
 **Put this is your script tag**
 ```
-<script src="https://github.com/baltej223/personal/personal.js"></script>
+<script src="https://baltej223.github.io/personal/personal.js"></script>
+
 ```
 #### functions
 - page
