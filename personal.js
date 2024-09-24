@@ -256,3 +256,16 @@ Function.prototype.ready = function(){
     ready(this);
 }
 const escapeHtml = str => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function recordTime(fn){
+    if (typeof fn != "function"){
+        throw new Error("Invalid type of parameter passed to recordTime function! Only Function is allowed");
+    }
+    let stms = new Date().getMilliseconds();
+    fn();
+    let etms = new Date().getMilliseconds();
+    console.log(etms-stms);
+    return etms-stms;
+
+} 
+
