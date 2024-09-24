@@ -269,7 +269,7 @@ function recordTime(fn){
 
 } 
 
-Element.prototype.addElement = function(element, attrs) {
+Element.prototype.addElement = function(element, attrs={}) {
   const ele = document.createElement(element);
   const keys = Object.keys(attrs);
   
