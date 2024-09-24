@@ -133,21 +133,34 @@ function $$$(selector = "body", index = 0, returnarray = false) {
     return new Promise((resolve, reject) => {
         const onDOMContentLoaded = () => {
             try {
-                if (!returnarray) {
-                    var element = document.querySelectorAll(selector)[index];
-                    if (element) {
-                        resolve(element);
+                const getElements = () => {
+                    if (!returnarray) {
+                        const element = document.querySelectorAll(selector)[index];
+                        if (element) {
+                            resolve(element);
+                            return true; // Found the element
+                        }
                     } else {
-                        reject(`Element with selector '${selector}' and index ${index} not found.`);
+                        const elements = document.querySelectorAll(selector);
+                        if (elements.length > 0) {
+                            resolve(Array.from(elements));
+                            return true; // Found elements
+                        }
                     }
-                } else {
-                    var elements = document.querySelectorAll(selector);
-                    if (elements.length > 0) {
-                        resolve(Array.from(elements)); // Resolve with an array of elements
-                    } else {
-                        reject(`No elements found with selector '${selector}'.`);
+                    return false; // No elements found
+                };
+
+                if (getElements()) return; // If found, exit
+
+                // Set up a MutationObserver
+                const observer = new MutationObserver(() => {
+                    if (getElements()) {
+                        observer.disconnect(); // Stop observing once found
                     }
-                }
+                });
+
+                observer.observe(document, { childList: true, subtree: true });
+                
             } catch (error) {
                 reject(`Error selecting element: ${error}`);
             }
