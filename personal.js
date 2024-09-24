@@ -269,3 +269,12 @@ function recordTime(fn){
 
 } 
 
+Element.prototype.addElement = (element,attrs)=>{
+  let ele = document.createElement(element);
+  let keys = Object.keys(attrs);
+  let string ="";
+  for(i=0;i<keys.length;i++){
+    ele.setAttribute(keys[i],attrs[keys[i]]);
+  } 
+  this.appendChild(ele);
+};
