@@ -173,6 +173,52 @@ function $$$(selector = "body", index = 0, returnarray = false) {
         }
     });
 }
+
+Element.prototype.$$$ = function(selector="body",index=0, returnarray=false){
+    return new Promise((resolve, reject) => {
+        const onDOMContentLoaded = () => {
+            try {
+                const getElements = () => {
+                    if (!returnarray) {
+                        const element = this.querySelectorAll(selector)[index];
+                        if (element) {
+                            resolve(element);
+                            return true; // Found the element
+                        }
+                    } else {
+                        const elements = this.querySelectorAll(selector);
+                        if (elements.length > 0) {
+                            resolve(Array.from(elements));
+                            return true; // Found elements
+                        }
+                    }
+                    return false; // No elements found
+                };
+
+                if (getElements()) return; // If found, exit
+
+                // Set up a MutationObserver
+                const observer = new MutationObserver(() => {
+                    if (getElements()) {
+                        observer.disconnect(); // Stop observing once found
+                    }
+                });
+
+                observer.observe(document, { childList: true, subtree: true });
+                
+            } catch (error) {
+                reject(`Error selecting element: ${error}`);
+            }
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener("DOMContentLoaded", onDOMContentLoaded);
+        } else {
+            onDOMContentLoaded();
+        }
+    });
+}
+
 function searchAll(string, word) {
     let indices = [];
     let index = string.indexOf(word);
