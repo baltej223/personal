@@ -327,3 +327,36 @@ Element.prototype.addElement = function(element, attrs={}) {
   return ele; // Optional: return the created element
 };
 
+Object.prototype.onKeyPress = function(key,func=()=>{}){
+    try{
+        ready(()=>{
+            this.addEventListner("keypress",function(event){
+                if (event.key == key){
+                    func();
+                }
+                else{
+                    null;
+                }
+        });
+    });
+    }catch(e){
+        console.log("An error occured, Error:",e);
+    }
+}
+
+Object.prototype.onEnter = function(func=()=>{}){
+    try{
+        ready(()=>{
+            this.addEventListner("keypress",function(event){
+                if (event.key == "Enter"){
+                    func();
+                }
+                else{
+                    null;
+                }
+        });
+    });
+    }catch(e){
+        console.log("An error occured, Error:",e);
+    }
+}
