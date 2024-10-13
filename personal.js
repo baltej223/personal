@@ -330,7 +330,7 @@ Element.prototype.addElement = function(element, attrs={}) {
 Object.prototype.onKeyPress = function(key,func=()=>{}){
     try{
         ready(()=>{
-            this.addEventListner("keypress",function(event){
+            this.addEventListener("keypress",function(event){
                 if (event.key == key){
                     func();
                 }
@@ -347,7 +347,7 @@ Object.prototype.onKeyPress = function(key,func=()=>{}){
 Object.prototype.onEnter = function(func=()=>{}){
     try{
         ready(()=>{
-            this.addEventListner("keypress",function(event){
+            this.addEventListener("keypress",function(event){
                 if (event.key == "Enter"){
                     func();
                 }
